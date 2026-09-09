@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ProntoTech – Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eef2f7;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#10213b}
+.app{max-width:430px;min-height:100vh;margin:auto;background:white;padding-bottom:80px}
+header{padding:22px 18px 14px;display:flex;gap:10px;align-items:center}.mark{font-size:34px}.brand{font-size:24px;font-weight:800}.brand span{color:#0878e8}.tag{font-size:11px;color:#718096}
+.hero{margin:0 14px 16px;padding:23px 18px;border-radius:22px;background:#0d3154;color:white}.hero h1{margin:0 0 7px;font-size:27px}.hero p{margin:0 0 16px}.search{background:white;color:#718096;padding:14px;border-radius:14px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:14px}.action{border:0;border-radius:19px;color:white;text-align:left;padding:17px;min-height:130px;font-size:17px;font-weight:800}.action small{display:block;margin-top:8px;font-size:12px;font-weight:500;line-height:1.35}.urgent{background:#e93642}.planned{background:#0878e8}
+section{padding:0 14px}h2{font-size:21px}.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.cat{border:1px solid #e4eaf2;border-radius:15px;padding:12px 3px;text-align:center;font-size:10px;font-weight:700}.cat div{font-size:22px;margin-bottom:5px}.trust{margin:17px 14px;padding:15px;background:#edf6ff;border-radius:16px;font-size:12px}.trust b{display:block;font-size:14px;margin-bottom:3px}
+nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);height:70px;background:white;border-top:1px solid #e6ebf0;display:flex;justify-content:space-around;align-items:center}nav button{border:0;background:none;color:#66758c;font-size:10px}nav span{display:block;font-size:22px;margin-bottom:2px}.active{color:#0878e8!important;font-weight:700}
+.page{display:none}.page.active{display:block}.top{display:flex;align-items:center;padding:12px 16px}.back{border:0;background:none;font-size:30px}.top h2{flex:1;text-align:center;font-size:18px;margin:0}.steps{text-align:center;font-size:11px;color:#0878e8;padding:6px}.option{display:block;width:calc(100% - 28px);margin:9px 14px;padding:15px;border:1px solid #dfe6ef;border-radius:15px;background:white;text-align:left;font-size:15px;font-weight:700}.option span{font-size:22px;margin-right:10px}.field{margin:16px}.field label{display:block;font-weight:700;margin-bottom:7px}.field textarea,.field input{width:100%;padding:13px;border:1px solid #dfe6ef;border-radius:12px;font:inherit}.primary{width:100%;padding:15px;border:0;border-radius:14px;background:#0878e8;color:white;font-size:16px;font-weight:800}.box{margin:16px;padding:18px;border:1px dashed #ccd7e5;border-radius:15px;color:#738198}.tech{margin:9px 14px;padding:14px;border:1px solid #e1e7ef;border-radius:15px;display:flex;gap:10px;align-items:center}.avatar{width:46px;height:46px;border-radius:50%;background:#e4f0ff;display:grid;place-items:center;font-size:22px}.tech small{display:block;color:#718096;margin-top:3px}.price{margin-left:auto;font-weight:800}.success{text-align:center;padding:60px 25px}.check{font-size:65px}
+</style>
+</head>
+<body>
+<div class="app">
+<div id="home" class="page active">
+<header><div class="mark">🏠</div><div><div class="brand">Pronto<span>Tech</span></div><div class="tag">Il tecnico che ti serve, quando ti serve.</div></div></header>
+<div class="hero"><h1>Hai un problema?</h1><p>Trova subito il tecnico giusto per la tua casa.</p><div class="search">🔎 Cerca un servizio o un tecnico…</div></div>
+<div class="actions">
+<button type="button" class="action urgent" id="urgentBtn">🚨<br>Intervento urgente<small>Arriva un tecnico il prima possibile →</small></button>
+<button type="button" class="action planned" id="plannedBtn">📅<br>Lavoro programmato<small>Scegli data e orario →</small></button>
+</div>
+<section><h2>Categorie</h2><div class="cats">
+<div class="cat"><div>⚡</div>Elettricista</div><div class="cat"><div>💧</div>Idraulico</div><div class="cat"><div>🧱</div>Edilizia</div><div class="cat"><div>🔥</div>Termoidraulico</div>
+<div class="cat"><div>❄️</div>Climatizzazione</div><div class="cat"><div>🔑</div>Fabbro</div><div class="cat"><div>🎨</div>Imbianchino</div><div class="cat"><div>🪚</div>Falegname</div>
+</div></section>
+<div class="trust">🛡️ <b>Tecnici selezionati</b>Professionisti verificati, affidabili e con esperienza.</div>
+</div>
+
+<div id="flow" class="page">
+<div class="top"><button type="button" class="back" id="backBtn">‹</button><h2 id="title">Intervento urgente</h2></div>
+<div class="steps">● 1 Tecnico　→　2 Descrizione　→　3 Dettagli　→　4 Conferma</div>
+<div id="content"></div>
+</div>
+
+<nav>
+<button class="active" id="homeNav"><span>⌂</span>Home</button>
+<button><span>⌕</span>Cerca</button>
+<button id="requestNav"><span>＋</span>Richiedi</button>
+<button><span>💬</span>Messaggi</button>
+<button><span>♙</span>Profilo</button>
+</nav>
+</div>
+
+<script>
+(function(){
+let mode="urgent";
+const $=id=>document.getElementById(id);
+function show(id){$("home").classList.remove("active");$("flow").classList.remove("active");$(id).classList.add("active")}
+function start(m){mode=m; $("title").textContent=m==="urgent"?"Intervento urgente":"Lavoro programmato"; show("flow"); step1()}
+function step1(){
+$("content").innerHTML="<h2 style='padding:0 16px'>Che tipo di tecnico ti serve?</h2>"+
+["⚡ Elettricista","💧 Idraulico","🧱 Edilizia","🔥 Termoidraulico","❄️ Climatizzazione","🔑 Fabbro","🎨 Imbianchino","🪚 Falegname"]
+.map(x=>"<button type='button' class='option' data-next='2'>"+x+"　›</button>").join("");
+document.querySelectorAll("[data-next]").forEach(b=>b.addEventListener("click",step2));
+}
+function step2(){
+$("content").innerHTML="<h2 style='padding:0 16px'>Descrivi il problema</h2><div class='field'><label>Cosa è successo?</label><textarea placeholder='Es. Il rubinetto perde acqua...'></textarea></div><div class='box'>📷 Aggiungi foto o video (opzionale)</div><div class='field'><button type='button' class='primary' id='next'>Avanti →</button></div>";
+$("next").addEventListener("click",step3);
+}
+function step3(){
+$("content").innerHTML="<h2 style='padding:0 16px'>Dove e quando?</h2><div class='box'>📍 <b>La tua posizione</b><br><br>Posizione utilizzata per trovare i tecnici più vicini.</div><div class='field'><label>"+(mode==="urgent"?"Disponibilità":"Data preferita")+"</label><input type='"+(mode==="urgent"?"text":"date")+"' value='"+(mode==="urgent"?"Il prima possibile":"")+"'></div><div class='field'><button type='button' class='primary' id='find'>Trova i tecnici →</button></div>";
+$("find").addEventListener("click",step4);
+}
+function step4(){
+let people=[["Marco Bianchi","4.9","2,3 km","€80–120"],["Luca Ferri","4.8","4,1 km","€70–110"],["Giuseppe Romano","4.7","6,8 km","€75–115"]];
+$("content").innerHTML="<h2 style='padding:0 16px'>"+(mode==="urgent"?"Tecnici disponibili ora":"Preventivi disponibili")+"</h2>"+
+people.map(p=>"<div class='tech'><div class='avatar'>👨‍🔧</div><div><b>"+p[0]+"</b><small>⭐ "+p[1]+" · 📍 "+p[2]+"</small><small>"+(mode==="urgent"?"Disponibile ora":"Preventivo indicativo")+"</small></div><div class='price'>"+p[3]+"</div></div>").join("")+
+"<div class='field'><button type='button' class='primary' id='confirm'>Continua →</button></div>";
+$("confirm").addEventListener("click",confirm);
+}
+function confirm(){$("content").innerHTML="<div class='success'><div class='check'>✅</div><h1>Richiesta inviata!</h1><p>Il tecnico è stato contattato. Potrai vedere la risposta nella sezione Richieste.</p><button type='button' class='primary' id='homeAgain'>Torna alla Home</button></div>";$("homeAgain").addEventListener("click",()=>show("home"))}
+$("urgentBtn").addEventListener("click",()=>start("urgent"));
+$("plannedBtn").addEventListener("click",()=>start("planned"));
+$("requestNav").addEventListener("click",()=>start("urgent"));
+$("homeNav").addEventListener("click",()=>show("home"));
+$("backBtn").addEventListener("click",()=>show("home"));
+})();
+</script>
+</body>
+</html>
